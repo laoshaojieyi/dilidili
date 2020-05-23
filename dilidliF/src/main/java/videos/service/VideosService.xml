@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="videos.service.VideosService">
+  
+  <sql id="video">
+  	video_id videoId, video_name videoName, video_playNum videoPlayum, video_userId videoUserid, video_collectNum videoCollectnum, video_rewardMoney videoRewardmoney, video_likeNum videoLikenum, video_type videoType, video_flag videoFlag
+  </sql>
+  <delete id="deleteVideo" parameterType="int">
+  		delete from videos where video_id=#{id}
+  </delete>
+  <update id="pushVideo" parameterType="int"> 
+  	     
+  </update>
+  <update id="passVideo" parameterType="int">
+  	update videos set video_flag='1' where video_id=#{id}
+  </update>
+  <delete id="prohibitVideo" parameterType="int">
+  	delete from videos where video_id=#{id}
+  </delete>
+  <select id="selectVideoById" parameterType="int" resultType="videos.entity.Videos">
+  	select
+  	<include refid="video"/>
+  	from videos
+  	where video_id=#{id}
+  </select>
+   <select id="selectAll" resultType="videos.entity.Videos">
+  	select
+  	<include refid="video"/>
+  	from videos
+  	where 1
+  </select>
+   <select id="selectVideoByName" parameterType="String" resultType="videos.entity.Videos">
+  	select
+  	<include refid="video"/>
+  	from videos
+  	where video_name=#{name}
+  </select>
+   <select id="selectVideoByUserId" parameterType="int" resultType="videos.entity.Videos">
+  	select
+  	<include refid="video"/>
+  	from videos
+  	where video_userId=#{userId}
+  </select>
+</mapper>

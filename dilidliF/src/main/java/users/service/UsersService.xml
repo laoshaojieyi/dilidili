@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="users.service.UsersService">
+	<sql id="user">
+		user_id userId, user_name userName, user_password userPassword, user_money userMoney, user_vip userVip, user_telNum userTelnum, user_black userBlack, user_reportNum userReportnum
+	</sql>
+  	<delete id="deleteUser" parameterType="int">
+  		delete from users where user_id=#{id}
+  	</delete>
+  	<update id="blackUser" parameterType="int">
+  	 	update users set user_black='1' where user_id=#{id}
+  	</update>
+  	<update id="freezeUser" parameterType="int">				<!--冻结暂时为拉黑，最后加入定时系统-->
+  	  	 update users set user_black='1' where user_id=#{id}
+  	</update>
+  	<update id="fireUser" parameterType="int">
+  	 	update users set user_black='0' where user_id=#{id}
+  	</update>
+  	<update id="setUservip" parameterType="int">
+  	 	update users set user_vip='1' where user_id=#{id}
+  	</update>
+  	<select id="selectUserById" parameterType="int" resultType="users.entity.Users">
+  		select 
+  		<include refid="user"/>
+  		from users
+  		where user_id=#{id}
+  	</select>
+  	<select id="selectUserByTelnum" parameterType="String" resultType="users.entity.Users">
+  		select 
+  		<include refid="user"/>
+  		from users
+  		where user_telNum=#{Name}
+  	</select>
+  	<select id="selectUserByName" parameterType="String" resultType="users.entity.Users">
+  		select 
+  		<include refid="user"/>
+  		from users
+  		where user_name=#{Name}
+  	</select>
+  	<select id="selectAll" parameterType="int" resultType="users.entity.Users">
+  		select
+  		<include refid="user"/>
+  		from users
+  		where 1
+  	</select>
+</mapper>
